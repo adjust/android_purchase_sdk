@@ -5,6 +5,10 @@ adjust.com.
 
 ## Basic Installation
 
+In order to use the adjust purchase SDK, you must **first enable fraud prevention**
+for your app. You can find the instructions in our official 
+[fraud prevention guide][fraud-prevention] documentation.
+
 These are the basic steps required to integrate the adjust purchase SDK into
 your Android project. We are going to assume that you use Android Studio for 
 your Android development and target an Android API level 9 (Gingerbread) or later.
@@ -237,15 +241,16 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
 }
 ```
 
-[adjust.com]:             http://adjust.com
-[dashboard]:              http://adjust.com
-[maven]:                  http://maven.org
-[releases]:               https://github.com/adjust/android_purchase_sdk/releases
-[import_module]:          https://raw.github.com/adjust/sdks/master/Resources/android_purchase/import_module.png
-[select_module]:          https://raw.github.com/adjust/sdks/master/Resources/android_purchase/select_module.png
-[imported_module]:        https://raw.github.com/adjust/sdks/master/Resources/android_purchase/imported_module.png
-[gradle_adjust_purchase]: https://raw.github.com/adjust/sdks/master/Resources/android_purchase/gradle_adjust_purchase.png
-[application_config]:     https://raw.github.com/adjust/sdks/master/Resources/android_purchase/application_config.png
+[adjust.com]:               http://adjust.com
+[dashboard]:                http://adjust.com
+[maven]:                    http://maven.org
+[fraud-prevention]:         https://docs.adjust.com/en/fraud-prevention/
+[releases]:                 https://github.com/adjust/android_purchase_sdk/releases
+[import_module]:            https://raw.github.com/adjust/sdks/master/Resources/android_purchase/import_module.png
+[select_module]:            https://raw.github.com/adjust/sdks/master/Resources/android_purchase/select_module.png
+[imported_module]:          https://raw.github.com/adjust/sdks/master/Resources/android_purchase/imported_module.png
+[gradle_adjust_purchase]:   https://raw.github.com/adjust/sdks/master/Resources/android_purchase/gradle_adjust_purchase.png
+[application_config]:       https://raw.github.com/adjust/sdks/master/Resources/android_purchase/application_config.png
 
 ## License
 
