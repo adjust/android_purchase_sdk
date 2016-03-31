@@ -109,7 +109,7 @@ public class ADJPMerchant extends HandlerThread implements OnADJPRequestFinished
 
     private void verifyInternal(ADJPMerchantItem item) {
         HashMap<String, String> parameters = new HashMap<String, String>();
-        addString(parameters, ADJPConstants.KEY_SDK_VERSION, ADJPConstants.SDK_VERSION);
+        addString(parameters, ADJPConstants.KEY_SDK_VERSION, this.config.getClientSdk());
         addString(parameters, ADJPConstants.KEY_APP_TOKEN, this.config.getAppToken());
         addString(parameters, ADJPConstants.KEY_ENVIRONMENT, this.config.getEnvironment());
         addString(parameters, ADJPConstants.KEY_GPS_PRODUCT_ID, item.getItemSku());
