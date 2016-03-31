@@ -46,6 +46,8 @@ public class ADJPRequestHandler extends HandlerThread {
 
     private void sendURLRequest(ADJPVerificationPackage verificationPackage) {
         try {
+            ADJPLogger.getInstance().verbose(verificationPackage.getExtendedString());
+
             HttpsURLConnection connection = createPOSTHttpsURLConnection(
                     ADJPConstants.BASE_URL,
                     verificationPackage.getParameters());
