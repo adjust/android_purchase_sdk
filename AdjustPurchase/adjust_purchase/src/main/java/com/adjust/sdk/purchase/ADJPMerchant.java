@@ -35,12 +35,7 @@ public class ADJPMerchant extends HandlerThread implements OnADJPRequestFinished
                                OnADJPVerificationFinished callback) {
         ADJPMerchantItem item = new ADJPMerchantItem(itemSku, itemToken, developerPayload, callback);
 
-        if (item.isValid()) {
-            Message message = Message.obtain();
-            message.arg1 = InternalHandler.VERIFY;
-            message.obj = item;
-            internalHandler.sendMessage(message);
-        } else {
+        if (!item.isValid()) {
             if (item.getCallback() != null) {
                 ADJPVerificationInfo info = new ADJPVerificationInfo();
                 info.setMessage("Invalid verification request parameters");
@@ -48,7 +43,14 @@ public class ADJPMerchant extends HandlerThread implements OnADJPRequestFinished
 
                 item.getCallback().onVerificationFinished(info);
             }
+
+            return;
         }
+
+        Message message = Message.obtain();
+        message.arg1 = InternalHandler.VERIFY;
+        message.obj = item;
+        internalHandler.sendMessage(message);
     }
 
     public boolean isValid() {
@@ -103,13 +105,15 @@ public class ADJPMerchant extends HandlerThread implements OnADJPRequestFinished
                     ADJPMerchantItem item = (ADJPMerchantItem) message.obj;
                     merchant.verifyInternal(item);
                     break;
+                default:
+                    break;
             }
         }
     }
 
     private void verifyInternal(ADJPMerchantItem item) {
         HashMap<String, String> parameters = new HashMap<String, String>();
-        addString(parameters, ADJPConstants.KEY_SDK_VERSION, ADJPConstants.SDK_VERSION);
+        addString(parameters, ADJPConstants.KEY_SDK_VERSION, this.config.getClientSdk());
         addString(parameters, ADJPConstants.KEY_APP_TOKEN, this.config.getAppToken());
         addString(parameters, ADJPConstants.KEY_ENVIRONMENT, this.config.getEnvironment());
         addString(parameters, ADJPConstants.KEY_GPS_PRODUCT_ID, item.getItemSku());

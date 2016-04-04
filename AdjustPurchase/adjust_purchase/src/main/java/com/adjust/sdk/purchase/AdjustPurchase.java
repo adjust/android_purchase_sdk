@@ -18,6 +18,11 @@ public class AdjustPurchase {
     }
 
     public static void init(ADJPConfig config) {
+        if (defaultInstance != null) {
+            ADJPLogger.getInstance().error("AdjustPurchase SDK is already initialised");
+            return;
+        }
+
         // Check if config object was set properly.
         if (!config.isValid()) {
             return;
@@ -39,20 +44,22 @@ public class AdjustPurchase {
             return;
         }
 
-        // If merchant is not valid, check why config validation
-        // failed and report that to responseBlock given by user.
-        ADJPMerchant merchant = AdjustPurchase.getDefaultInstance();
+        if (defaultInstance == null) {
+            ADJPLogger.getInstance().error("AdjustPurchase SDK is not initialised");
 
-        if (!merchant.isValid()) {
             ADJPVerificationInfo info = new ADJPVerificationInfo();
-            info.setStatusCode(0);
-            info.setMessage("Config object initialisation failed");
+            info.setStatusCode(-1);
+            info.setMessage("AdjustPurchase SDK is not initialised");
             info.setVerificationState(ADJPVerificationState.ADJPVerificationStateNotVerified);
 
             callback.onVerificationFinished(info);
 
             return;
         }
+
+        // If merchant is not valid, check why config validation
+        // failed and report that to responseBlock given by user.
+        ADJPMerchant merchant = AdjustPurchase.getDefaultInstance();
 
         // Everything initialized properly, proceed with verification request.
         merchant.verifyPurchase(itemSku, itemToken, developerPayload, callback);
