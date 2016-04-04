@@ -35,12 +35,7 @@ public class ADJPMerchant extends HandlerThread implements OnADJPRequestFinished
                                OnADJPVerificationFinished callback) {
         ADJPMerchantItem item = new ADJPMerchantItem(itemSku, itemToken, developerPayload, callback);
 
-        if (item.isValid()) {
-            Message message = Message.obtain();
-            message.arg1 = InternalHandler.VERIFY;
-            message.obj = item;
-            internalHandler.sendMessage(message);
-        } else {
+        if (!item.isValid()) {
             if (item.getCallback() != null) {
                 ADJPVerificationInfo info = new ADJPVerificationInfo();
                 info.setMessage("Invalid verification request parameters");
@@ -48,7 +43,14 @@ public class ADJPMerchant extends HandlerThread implements OnADJPRequestFinished
 
                 item.getCallback().onVerificationFinished(info);
             }
+
+            return;
         }
+
+        Message message = Message.obtain();
+        message.arg1 = InternalHandler.VERIFY;
+        message.obj = item;
+        internalHandler.sendMessage(message);
     }
 
     public boolean isValid() {
@@ -102,6 +104,8 @@ public class ADJPMerchant extends HandlerThread implements OnADJPRequestFinished
                 case VERIFY:
                     ADJPMerchantItem item = (ADJPMerchantItem) message.obj;
                     merchant.verifyInternal(item);
+                    break;
+                default:
                     break;
             }
         }
