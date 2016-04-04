@@ -62,6 +62,8 @@ public class ADJPRequestHandler extends HandlerThread {
 
             ADJPLogger.getInstance().error("Error while making URL request");
             ADJPLogger.getInstance().error(e.getMessage());
+
+            this.listener.requestFinished(response, verificationPackage);
         }
     }
 
