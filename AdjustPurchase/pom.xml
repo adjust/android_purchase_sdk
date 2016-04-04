@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>adjust-purchase-android</artifactId>
     <groupId>com.adjust.sdk.purchase</groupId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <packaging>jar</packaging>
     <name>Adjust Purchase Android SDK</name>
     <url>https://github.com/adjust/android_purchase_sdk</url>
