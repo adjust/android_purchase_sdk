@@ -224,18 +224,12 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
         Adjust.trackEvent(event);
     } else if (info.getVerificationState() == ADJPVerificationState.ADJPVerificationStateFailed) {
         AdjustEvent event = new AdjustEvent("{RevenueEventFailedToken}");
-        event.setRevenue(0.01, "EUR");
-        
         Adjust.trackEvent(event);
     } else if (info.getVerificationState() == ADJPVerificationState.ADJPVerificationStateUnknown) {
         AdjustEvent event = new AdjustEvent("{RevenueEventUnknownToken}");
-        event.setRevenue(0.01, "EUR");
-        
         Adjust.trackEvent(event);
     } else {
         AdjustEvent event = new AdjustEvent("{RevenueEventNotVerifiedToken}");
-        event.setRevenue(0.01, "EUR");
-        
         Adjust.trackEvent(event);
     }
 }
