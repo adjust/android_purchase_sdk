@@ -59,10 +59,14 @@ public class ADJPMerchantItem {
             return false;
         }
 
+        // Skip checking if developer payload is empty.
+        // In case user isn't able to provide developer payload information.
+        /*
         if (this.developerPayload.isEmpty()) {
             ADJPLogger.getInstance().error("Developer payload not valid");
             return false;
         }
+        */
 
         return true;
     }
