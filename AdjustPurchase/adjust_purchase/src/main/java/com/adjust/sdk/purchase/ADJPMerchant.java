@@ -38,6 +38,8 @@ public class ADJPMerchant extends HandlerThread implements OnADJPRequestFinished
         if (!item.isValid()) {
             if (item.getCallback() != null) {
                 ADJPVerificationInfo info = new ADJPVerificationInfo();
+
+                info.setStatusCode(-1);
                 info.setMessage("Invalid verification request parameters");
                 info.setVerificationState(ADJPVerificationState.ADJPVerificationStateNotVerified);
 
