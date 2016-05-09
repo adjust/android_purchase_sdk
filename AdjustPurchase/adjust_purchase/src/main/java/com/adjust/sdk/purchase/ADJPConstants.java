@@ -21,7 +21,7 @@ public class ADJPConstants {
     public static final String KEY_ADJUST_MESSAGE = "adjust_message";
     public static final String KEY_ADJUST_STATUS_CODE = "adjust_status_code";
 
-    public static final String SDK_VERSION = "android_purchase1.1.1";
+    public static final String SDK_VERSION = "android_purchase1.1.2";
     public static final String TAG = "AdjustPurchase";
     public static final String ENCODING = "UTF-8";
     public static final String BASE_URL = "https://ssrv.adjust.com/verify";
