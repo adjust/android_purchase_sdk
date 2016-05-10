@@ -68,17 +68,16 @@ public class ADJPConfig {
         }
 
         if (this.environment.equalsIgnoreCase(ADJPConstants.ENVIRONMENT_SANDBOX)) {
-            ADJPLogger.getInstance().Assert("SANDBOX: AdjustPurchase SDK is running in sandbox mode. " +
+            ADJPLogger.getInstance().Assert("SANDBOX: AdjustPurchase is running in sandbox mode. " +
                     "Use this setting for testing. " +
                     "Don't forget to set the environment to `production` before publishing!");
             return true;
         }
 
         if (this.environment.equalsIgnoreCase(ADJPConstants.ENVIRONMENT_PRODUCTION)) {
-            ADJPLogger.getInstance().Assert(
-                    "PRODUCTION: AdjustPurchase SDK is running in production mode. " +
-                            "Use this setting only for the build that you want to publish. " +
-                            "Set the environment to `sandbox` if you want to test your app!");
+            ADJPLogger.getInstance().Assert("PRODUCTION: AdjustPurchase is running in production mode. " +
+                    "Use this setting only for the build that you want to publish. " +
+                    "Set the environment to `sandbox` if you want to test your app!");
             return true;
         }
 

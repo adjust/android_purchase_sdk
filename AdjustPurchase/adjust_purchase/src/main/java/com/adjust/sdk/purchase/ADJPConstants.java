@@ -6,9 +6,17 @@ package com.adjust.sdk.purchase;
 public class ADJPConstants {
     public static final int TIMEOUT = 5000;
     public static final int APP_TOKEN_SIZE = 12;
+    public static final int STATUS_CODE_ERROR = -1;
+
+    public static final String ENCODING = "UTF-8";
+    public static final String TAG = "AdjustPurchase";
+    public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'Z";
 
     public static final String ENVIRONMENT_SANDBOX = "sandbox";
     public static final String ENVIRONMENT_PRODUCTION = "production";
+
+    public static final String SDK_VERSION = "android_purchase1.1.2";
+    public static final String BASE_URL = "https://ssrv.adjust.com/verify";
 
     public static final String KEY_APP_TOKEN = "app_token";
     public static final String KEY_SDK_VERSION = "sdk_version";
@@ -20,10 +28,4 @@ public class ADJPConstants {
     public static final String KEY_ADJUST_STATE = "adjust_state";
     public static final String KEY_ADJUST_MESSAGE = "adjust_message";
     public static final String KEY_ADJUST_STATUS_CODE = "adjust_status_code";
-
-    public static final String SDK_VERSION = "android_purchase1.1.2";
-    public static final String TAG = "AdjustPurchase";
-    public static final String ENCODING = "UTF-8";
-    public static final String BASE_URL = "https://ssrv.adjust.com/verify";
-    public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'Z";
 }

@@ -57,7 +57,7 @@ public class ADJPRequestHandler extends HandlerThread {
         } catch (Exception e) {
             Map<String, Object> response = new HashMap<String, Object>();
             response.put(ADJPConstants.KEY_ADJUST_MESSAGE, "Error while making URL request");
-            response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, -1);
+            response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, ADJPConstants.STATUS_CODE_ERROR);
             response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStateNotVerified);
 
             ADJPLogger.getInstance().error("Error while making URL request");

@@ -10,9 +10,9 @@ import java.util.Locale;
  */
 public class ADJPLogger {
     private static String formatErrorMessage = "Error formatting log message: %s, with params: %s";
-    private static ADJPLogger instance = null;
 
     private ADJPLogLevel logLevel;
+    private static ADJPLogger instance = null;
 
     private ADJPLogger() {
         setLogLevel(ADJPLogLevel.INFO);

@@ -48,7 +48,8 @@ public class AdjustPurchase {
             ADJPLogger.getInstance().error("AdjustPurchase SDK is not initialised");
 
             ADJPVerificationInfo info = new ADJPVerificationInfo();
-            info.setStatusCode(-1);
+
+            info.setStatusCode(ADJPConstants.STATUS_CODE_ERROR);
             info.setMessage("AdjustPurchase SDK is not initialised");
             info.setVerificationState(ADJPVerificationState.ADJPVerificationStateNotVerified);
 
