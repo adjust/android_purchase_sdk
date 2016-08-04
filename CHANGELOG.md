@@ -1,6 +1,7 @@
-### Version 1.1.2 (xxth May 2016)
+### Version 1.1.2 (4th August 2016)
 #### Changed
 - Allowing `developerPayload` parameter in verification request to be empty string.
+- Updated docs.
 
 #### Fixed
 - Upon invalid verification request parameters, reporting status code `-1`.
