@@ -59,10 +59,50 @@ public class ADJPMerchantItem {
             return false;
         }
 
+        // Skip checking if developer payload is empty.
+        // In case user isn't able to provide developer payload information.
+        /*s
         if (this.developerPayload.isEmpty()) {
             ADJPLogger.getInstance().error("Developer payload not valid");
             return false;
         }
+        */
+
+        return true;
+    }
+
+    public boolean isValid(String errorMessage) {
+        if (this.itemSku == null) {
+            errorMessage = "SKU value can't be null";
+            ADJPLogger.getInstance().error(errorMessage);
+            return false;
+        }
+
+        if (this.itemSku.isEmpty()) {
+            errorMessage = "SKU value can't be empty string";
+            ADJPLogger.getInstance().error(errorMessage);
+            return false;
+        }
+
+        if (this.itemToken == null) {
+            errorMessage = "Token value can't be null";
+            ADJPLogger.getInstance().error(errorMessage);
+            return false;
+        }
+
+        if (this.itemToken.isEmpty()) {
+            errorMessage = "Token value can't be empty string";
+            ADJPLogger.getInstance().error(errorMessage);
+            return false;
+        }
+
+        if (this.developerPayload == null) {
+            errorMessage = "Developer payload value can't be null";
+            ADJPLogger.getInstance().error(errorMessage);
+            return false;
+        }
+
+        // Developer payload not tested for empty string value like explained in isValid() method.
 
         return true;
     }

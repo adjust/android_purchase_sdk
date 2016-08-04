@@ -1,41 +1,51 @@
 ## Summary
 
-This is the Android purchase SDK of adjust™. You can read more about adjust™ at
-adjust.com.
+This is the Android purchase SDK of adjust™. You can read more about adjust™ at [adjust.com].
 
-## Basic Installation
+## Table of contents
 
-In order to use the adjust purchase SDK, you must **first enable fraud prevention**
-for your app. You can find the instructions in our official 
-[fraud prevention guide][fraud-prevention] documentation.
+* [Basic integration](#basic-integration)
+    * [Get the SDK](#sdk-get)
+    * [Import the SDK module](#sdk-import)
+    * [Add the SDK library to your project](#sdk-add)
+    * [Integrate the SDK into your app](#sdk-integrate)
+        * [Adjust Purchase logging](#sdk-logging)
+    * [Verify your purchases](#verify-purchases)
+        * [Make the verification request](#verification-request)
+        * [Process verification response](#verification-response)
+    * [Track your verified purchases](#track-purchases)
+* [Best practices](#best-practices)
+* [License](#license)
 
-These are the basic steps required to integrate the adjust purchase SDK into
-your Android project. We are going to assume that you use Android Studio for 
-your Android development and target an Android API level 9 (Gingerbread) or later.
+## Basic integration
 
-### 1. Get the SDK
+In order to use the adjust purchase SDK, you must **first enable fraud prevention** for your app. You can find the 
+instructions in our official [fraud prevention guide][fraud-prevention] documentation.
 
-Download the latest version from our [releases page][releases]. Extract the
-archive in a folder of your choice.
+These are the basic steps required to integrate the adjust purchase SDK into your Android project. We are going to assume 
+that you use Android Studio for your Android development and target an Android API level 9 (Gingerbread) or later.
 
-### 2. Import the module
+### <a id="sdk-get"></a>Get the SDK
+
+Download the latest version from our [releases page][releases]. Extract the archive in a folder of your choice.
+
+### <a id="sdk-import"></a>Import the SDK module
 
 In the Android Studio menu select `File → New → Import Module...`.
 
 ![][import_module]
 
-In the `Source directory` field, locate the folder you extracted in step 1.
-Select and choose the folder `./android_purchase_sdk/AdjustPurchase/adjust_purchase`. 
-Make sure the module name `:adjust_purchase` appears before finishing.
+In the `Source directory` field, locate the folder you extracted in [previous step](#sdk-get). Select and choose the folder 
+`./android_purchase_sdk/AdjustPurchase/adjust_purchase`. Make sure the module name `:adjust_purchase` appears before 
+finishing.
 
 ![][select_module]
 
-The `adjust_purchase` module should be imported into your Android Studio project
-afterwards.
+The `adjust_purchase` module should be imported into your Android Studio project afterwards.
 
 ![][imported_module]
 
-### <a id="step3"></a>3. Add the adjust library to your project
+### <a id="sdk-add"></a>Add the SDK library to your project
 
 Open the `build.gradle` file of your app and find the `dependencies` block. Add
 the following line:
@@ -46,10 +56,10 @@ compile project(":adjust_purchase")
 
 ![][gradle_adjust_purchase]
 
-### 4. Integrate Adjust into your app
+### <a id="sdk-integrate"></a>Integrate the SDK into your app
 
-In your `Application` class find or create the `onCreate` method and add the
-following code to initialize the adjust purchase SDK:
+In your `Application` class find or create the `onCreate` method and add the following code to initialize the adjust  
+purchase SDK:
 
 ```java
 import com.adjust.sdk.purchase.ADJPConfig;
@@ -75,29 +85,24 @@ public class GlobalApplication extends Application {
 
 Replace `{YourAppToken}` with your app token. You can find this in your [dashboard].
 
-Depending on whether you build your app for testing or for production, you must
-set `environment` with one of these values:
+Depending on whether you build your app for testing or for production, you must set `environment` with one of these values:
     
 ```java
 String environment = ADJPConstants.ENVIRONMENT_SANDBOX;
 String environment = ADJPConstants.ENVIRONMENT_PRODUCTION;
 ```
     
-**Important:** This value should be set to `ADJPConstants.ENVIRONMENT_SANDBOX`
-if and only if you or someone else is testing your app. Make sure to set the
-environment to `ADJPConstants.ENVIRONMENT_PRODUCTION` just before you publish
-the app. Set it back to `ADJPConstants.ENVIRONMENT_SANDBOX` when you start
-developing and testing it again.
+**Important:** This value should be set to `ADJPConstants.ENVIRONMENT_SANDBOX` if and only if you or someone else is testing
+your app. Make sure to set the environment to `ADJPConstants.ENVIRONMENT_PRODUCTION` just before you publish the app. Set it
+back to `ADJPConstants.ENVIRONMENT_SANDBOX` when you start developing and testing it again.
 
-We use this environment to distinguish between real traffic and test traffic
-from test devices. It is very important that you keep this value meaningful at
-all times!
+We use this environment to distinguish between real traffic and test traffic from test devices. It is very important that 
+you keep this value meaningful at all times!
 
-#### Adjust Purchase Logging
+#### <a id="sdk-logging"></a>Adjust Purchase logging
 
-You can increase or decrease the amount of logs you see in tests by calling
-`setLogLevel` on your `ADJPConfig` instance with one of the following
-parameters:
+You can increase or decrease the amount of logs you see in tests by calling `setLogLevel` on your `ADJPConfig` instance with
+one of the following parameters:
 
 ```java
 config.setLogLevel(ADJPLogLevel.VERBOSE);   // Enable all logging.
@@ -108,16 +113,14 @@ config.setLogLevel(ADJPLogLevel.ERROR);     // Disable warnings as well.
 config.setLogLevel(ADJPLogLevel.ASSERT);    // Disable errors as well.
 ```
 
-### 5. Verify your purchases
+### <a id="verify-purchases"></a>Verify your purchases
 
-#### Make the verification request
+#### <a id="verification-request"></a>Make the verification request
 
-In order to verify purchase in your app, you need to call the `verifyPurchase`
-method on the `AdjustPurchase` instance. Please make sure to call this method
-once your purchase has been successfully performed.
+In order to verify purchase in your app, you need to call the `verifyPurchase` method on the `AdjustPurchase` instance. 
+Please make sure to call this method once your purchase has been successfully performed.
 
-Here is one example (depending on which IAP API
-you are using) for how you can do this:
+Here is one example (depending on which IAP API you are using) for how you can do this:
 
 ```java
 public class MainActivity extends Activity implements OnADJPVerificationFinished {
@@ -142,13 +145,12 @@ public class MainActivity extends Activity implements OnADJPVerificationFinished
 }
 ```
 
-#### Process verification response
+#### <a id="verification-response"></a>Process verification response
 
-As described in code above, in the last parameter of this method you should pass an 
-object that implements the `OnADJPVerificationFinished` protocol. To do this, you need
-to override the method called `onVerificationFinished`. This method will called by our
-purchase SDK once the response arrives. The response to purchase verification is represented 
-with an `ADJPVerificationInfo` object and it contains following information:
+As described in code above, in the last parameter of this method you should pass an object that implements the 
+`OnADJPVerificationFinished` protocol. To do this, you need to override the method called `onVerificationFinished`. This 
+method will called by our purchase SDK once the response arrives. The response to purchase verification is represented with 
+an `ADJPVerificationInfo` object and it contains following information:
 
 ```java
 info.getVerificationState()     // State of purchase verification.
@@ -165,25 +167,23 @@ ADJPVerificationState.ADJPVerificationStateUnknown      - Purchase verification 
 ADJPVerificationState.ADJPVerificationStateNotVerified  - Purchase was not verified.
 ```
 
-* If the purchase was successfully verified by Google servers, `ADJPVerificationStatePassed`
-will be reported together with the status code `200`.
-* If the Google servers recognized the purchase as invalid, `ADJPVerificationStateFailed` will
-be reported together with the status code `406`.
-* If the Google servers didn't provide us with any kind of answer to our request to verify
-your purchase, `ADJPVerificationStateUnknown` will be reported together with status
-code `204`. This situation means that we didn't manage to get any information from the
-Google servers regarding validity of your purchase. This does not say anything about the purchase
-itself. It might be both - valid or invalid. This state will also be reported if any
-other situation occurs that prevents us from reporting the correct state of your
-purchase verification. More details about these errors can be found by calling the 
-`getMessage()` method on the `ADJPVerificationInfo` object.
-* If `ADJPVerificationStateNotVerified` is reported, that means that the call to the
-`verifyPurchase` method was done with invalid parameters.
+* If the purchase was successfully verified by Google servers, `ADJPVerificationStatePassed` will be reported together with 
+the status code `200`.
+* If the Google servers recognized the purchase as invalid, `ADJPVerificationStateFailed` will be reported together with the
+status code `406`.
+* If the Google servers didn't provide us with any kind of answer to our request to verify your purchase, 
+`ADJPVerificationStateUnknown` will be reported together with status code `204`. This situation means that we didn't manage 
+to get any information from the Google servers regarding validity of your purchase. This does not say anything about the 
+purchase itself. It might be both - valid or invalid. This state will also be reported if any other situation occurs that 
+prevents us from reporting the correct state of your purchase verification. More details about these errors can be found by 
+calling the `getMessage()` method on the `ADJPVerificationInfo` object.
+* If `ADJPVerificationStateNotVerified` is reported, that means that the call to the `verifyPurchase` method was done with 
+invalid parameters.
 
-### 6. Track your verified purchases
+### <a id="track-purchases"></a>Track your verified purchases
 
-After a purchase is successfully verified, you can track it with our official 
-adjust SDK and keep track of revenue in your dashboard.
+After a purchase is successfully verified, you can track it with our official adjust SDK and keep track of revenue in your 
+dashboard.
 
 Using the examples from above, you can do this as follows:
 
@@ -199,18 +199,16 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
 }
 ```
 
-#### Best practices
+## <a id="best-practices"></a>Best practices
 
-Once `ADJPVerificationStatePassed` or `ADJPVerificationStateFailed` are reported, you can
-be sure that this decision was made by Google servers and you can rely on them to track
-or not to track your purchase revenue. Once `ADJPVerificationStateUnknown` is reported,
-you can decide what you want to do with this purchase.
+Once `ADJPVerificationStatePassed` or `ADJPVerificationStateFailed` are reported, you can be sure that this decision was 
+made by Google servers and you can rely on them to track or not to track your purchase revenue. Once 
+`ADJPVerificationStateUnknown` is reported, you can decide what you want to do with this purchase.
 
-For statistical purposes, it may be wise to have a single defined event for each of
-these scenarios in the adjust dashboard. This way, you can have better overview of how
-many of your purchases was marked as passed, how many of them failed and how many of them
-were not able to be verified and returned an unknown status. You can also keep track of
-unverified purchases if you would like to.
+For statistical purposes, it may be wise to have a single defined event for each of these scenarios in the adjust dashboard.
+This way, you can have better overview of how many of your purchases was marked as passed, how many of them failed and how 
+many of them were not able to be verified and returned an unknown status. You can also keep track of unverified purchases if
+you would like to.
 
 If you decide to do so, your method for handling the response can look like this:
 
@@ -235,18 +233,20 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
 }
 ```
 
-[adjust.com]:               http://adjust.com
 [dashboard]:                http://adjust.com
+[adjust.com]:               http://adjust.com
+
 [maven]:                    http://maven.org
-[fraud-prevention]:         https://docs.adjust.com/en/fraud-prevention/
 [releases]:                 https://github.com/adjust/android_purchase_sdk/releases
+[fraud-prevention]:         https://docs.adjust.com/en/fraud-prevention/
+
 [import_module]:            https://raw.github.com/adjust/sdks/master/Resources/android_purchase/import_module.png
 [select_module]:            https://raw.github.com/adjust/sdks/master/Resources/android_purchase/select_module.png
 [imported_module]:          https://raw.github.com/adjust/sdks/master/Resources/android_purchase/imported_module.png
-[gradle_adjust_purchase]:   https://raw.github.com/adjust/sdks/master/Resources/android_purchase/gradle_adjust_purchase.png
 [application_config]:       https://raw.github.com/adjust/sdks/master/Resources/android_purchase/application_config.png
+[gradle_adjust_purchase]:   https://raw.github.com/adjust/sdks/master/Resources/android_purchase/gradle_adjust_purchase.png
 
-## License
+## <a id="license"></a>License
 
 The adjust purchase SDK is licensed under the MIT License.
 
