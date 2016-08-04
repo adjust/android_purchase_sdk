@@ -15,6 +15,7 @@ This is the Android purchase SDK of adjust™. You can read more about adjust™
         * [Process verification response](#verification-response)
     * [Track your verified purchases](#track-purchases)
 * [Best practices](#best-practices)
+* [License](#license)
 
 ## Basic integration
 
@@ -245,7 +246,7 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
 [application_config]:       https://raw.github.com/adjust/sdks/master/Resources/android_purchase/application_config.png
 [gradle_adjust_purchase]:   https://raw.github.com/adjust/sdks/master/Resources/android_purchase/gradle_adjust_purchase.png
 
-## License
+## <a id="license"></a>License
 
 The adjust purchase SDK is licensed under the MIT License.
 
