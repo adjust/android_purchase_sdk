@@ -233,6 +233,9 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
 }
 ```
 
+Purchase Verification is not intended to be used to approve/reject delivery of goods sold. Purchase Verification is 
+intended to align reported transaction data with actual transaction data.
+
 [dashboard]:                http://adjust.com
 [adjust.com]:               http://adjust.com
 
