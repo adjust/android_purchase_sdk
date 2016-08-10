@@ -5,15 +5,15 @@ This is the Android purchase SDK of adjust™. You can read more about adjust™
 ## Table of contents
 
 * [Basic integration](#basic-integration)
-    * [Get the SDK](#sdk-get)
-    * [Import the SDK module](#sdk-import)
-    * [Add the SDK library to your project](#sdk-add)
-    * [Integrate the SDK into your app](#sdk-integrate)
-        * [Adjust Purchase logging](#sdk-logging)
-    * [Verify your purchases](#verify-purchases)
-        * [Make the verification request](#verification-request)
-        * [Process verification response](#verification-response)
-    * [Track your verified purchases](#track-purchases)
+   * [Get the SDK](#sdk-get)
+   * [Import the SDK module](#sdk-import)
+   * [Add the SDK library to your project](#sdk-add)
+   * [Integrate the SDK into your app](#sdk-integrate)
+   * [Adjust Purchase logging](#sdk-logging)
+* [Verify your purchases](#verify-purchases)
+   * [Make the verification request](#verification-request)
+   * [Process verification response](#verification-response)
+   * [Track your verified purchases](#track-purchases)
 * [Best practices](#best-practices)
 * [License](#license)
 
@@ -99,7 +99,7 @@ back to `ADJPConstants.ENVIRONMENT_SANDBOX` when you start developing and testin
 We use this environment to distinguish between real traffic and test traffic from test devices. It is very important that 
 you keep this value meaningful at all times!
 
-#### <a id="sdk-logging"></a>Adjust Purchase logging
+### <a id="sdk-logging"></a>Adjust Purchase logging
 
 You can increase or decrease the amount of logs you see in tests by calling `setLogLevel` on your `ADJPConfig` instance with
 one of the following parameters:
@@ -113,9 +113,9 @@ config.setLogLevel(ADJPLogLevel.ERROR);     // Disable warnings as well.
 config.setLogLevel(ADJPLogLevel.ASSERT);    // Disable errors as well.
 ```
 
-### <a id="verify-purchases"></a>Verify your purchases
+## <a id="verify-purchases"></a>Verify your purchases
 
-#### <a id="verification-request"></a>Make the verification request
+### <a id="verification-request"></a>Make the verification request
 
 In order to verify purchase in your app, you need to call the `verifyPurchase` method on the `AdjustPurchase` instance. 
 Please make sure to call this method once your purchase has been successfully performed.
@@ -145,7 +145,16 @@ public class MainActivity extends Activity implements OnADJPVerificationFinished
 }
 ```
 
-#### <a id="verification-response"></a>Process verification response
+Method of the adjust purchase SDK used to make verification request exects you to pass following parameters:
+
+```
+itemSku           // Unique order ID (SKU)
+itemToken         // A token that uniquely identifies a purchase
+developerPayload  // A developer-specified string that contains supplemental information about an order
+callback          // Callback method which will process the verification response
+```
+
+### <a id="verification-response"></a>Process verification response
 
 As described in code above, in the last parameter of this method you should pass an object that implements the 
 `OnADJPVerificationFinished` protocol. To do this, you need to override the method called `onVerificationFinished`. This 
