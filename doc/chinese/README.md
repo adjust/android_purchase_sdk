@@ -65,7 +65,7 @@ public class GlobalApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-    
+
         String yourAppToken = "{YourAppToken}";
         String environment = ADJPConstants.ENVIRONMENT_SANDBOX;
 
@@ -81,12 +81,12 @@ public class GlobalApplication extends Application {
 使用您的应用识别码替换 `{YourAppToken}` 。您可以在[控制面板]找到该识别码。
 
 取决于您的应用制作是用于测试或产品开发目的，您必须将 `environment` （环境模式）设为以下值之一：
-    
+
 ```java
 String environment = ADJPConstants.ENVIRONMENT_SANDBOX;
 String environment = ADJPConstants.ENVIRONMENT_PRODUCTION;
 ```
-    
+
 **重要:** 仅当您或其他人测试您的应用时，该值应设为 `ADJPConstants.ENVIRONMENT_SANDBOX` 。在您发布应用之前，请确保将环境改设为 `ADJPConstants.ENVIRONMENT_PRODUCTION` 。再次研发和测试时，请将其设回为 `ADJPConstants.ENVIRONMENT_SANDBOX` 。
 
 我们按照设置的环境来区分真实流量和来自测试设备的测试流量。非常重要的是，您必须始终让该值保持有意义！
@@ -110,7 +110,7 @@ config.setLogLevel(ADJPLogLevel.ASSERT);    // Disable errors as well.
 
 为了验证您的应用内购买，您需要调用 `AdjustPurchase` 实例上的 `verifyPurchase` 方法。请确保在购买成功后调用此方法。
 
-以下为操作示例 （取决于您正在使用的IAP API）： 
+以下为操作示例 （取决于您正在使用的IAP API）：
 
 ```java
 public class MainActivity extends Activity implements OnADJPVerificationFinished {
@@ -119,16 +119,16 @@ public class MainActivity extends Activity implements OnADJPVerificationFinished
             if (result.isSuccess()) {
                 // Do your stuff.
 
-                AdjustPurchase.verifyPurchase(purchase.getSku(), purchase.getToken(), 
+                AdjustPurchase.verifyPurchase(purchase.getSku(), purchase.getToken(),
                     purchase.getDeveloperPayload(), mCurrentActivity);
             } else  {
                 // Do your else stuff.
             }
         }
     };
-    
+
     // ...
-    
+
     public void onVerificationFinished(ADJPVerificationInfo info) {
         // ...
     }
@@ -179,7 +179,7 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
     if (info.getVerificationState() == ADJPVerificationState.ADJPVerificationStatePassed) {
         AdjustEvent event = new AdjustEvent("{YourEventToken}");
         event.setRevenue(0.01, "EUR");
-        
+
         Adjust.trackEvent(event);
     }
 }
@@ -199,7 +199,7 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
     if (info.getVerificationState() == ADJPVerificationState.ADJPVerificationStatePassed) {
         AdjustEvent event = new AdjustEvent("{RevenueEventPassedToken}");
         event.setRevenue(0.01, "EUR");
-        
+
         Adjust.trackEvent(event);
     } else if (info.getVerificationState() == ADJPVerificationState.ADJPVerificationStateFailed) {
         AdjustEvent event = new AdjustEvent("{RevenueEventFailedToken}");
@@ -221,7 +221,7 @@ public void onVerificationFinished(ADJPVerificationInfo info) {
 
 [maven]:                    http://maven.org
 [releases]:                 https://github.com/adjust/android_purchase_sdk/releases
-[fraud-prevention]:         https://docs.adjust.com/en/fraud-prevention/
+[fraud-prevention]:         https://docs.adjust.com/zh/fraud-prevention/
 
 [import_module]:            https://raw.github.com/adjust/sdks/master/Resources/android_purchase/import_module.png
 [select_module]:            https://raw.github.com/adjust/sdks/master/Resources/android_purchase/select_module.png
