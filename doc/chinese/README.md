@@ -1,6 +1,6 @@
 ## 摘要
 
-这是 adjust™ 的安卓购买SDK。您可以访问[adjust.com]了解更多有关 adjust™ 的信息。
+这是 adjust™ 的安卓收入验证SDK。您可以访问[adjust.com]了解更多有关 adjust™ 的信息。
 
 
 ## 目录
@@ -20,9 +20,9 @@
 
 ## 基本集成
 
-您必须 **首先为您的应用启用防作弊** ，以使用adjust购买SDK。您可以在我们的官方[防作弊指南][fraud-prevention]文档中找到相关说明。
+您必须 **首先为您的应用启用防作弊** ，以使用adjust收入验证SDK。您可以在我们的官方[防作弊指南][fraud-prevention]文档中找到相关说明。
 
-以下是将adjust购买SDK集成至安卓项目的基本步骤。我们假定您将Android Studio用于安卓开发，并使用安卓API level 9 (Gingerbread)及以上版本。
+以下是将adjust收入验证SDK集成至安卓项目的基本步骤。我们假定您将Android Studio用于安卓开发，并使用安卓API level 9 (Gingerbread)及以上版本。
 
 ### <a id="sdk-get"></a>获取SDK
 
@@ -54,7 +54,7 @@ compile project(":adjust_purchase")
 
 ### <a id="sdk-integrate"></a>集成SDK至您的应用
 
-在您的 `Application` 类中找到或者创建 `onCreate` 方法，然后添加如下代码以初始化adjust购买SDK:
+在您的 `Application` 类中找到或者创建 `onCreate` 方法，然后添加如下代码以初始化adjust收入验证SDK:
 
 ```java
 import com.adjust.sdk.purchase.ADJPConfig;
@@ -80,7 +80,7 @@ public class GlobalApplication extends Application {
 
 使用您的应用识别码替换 `{YourAppToken}` 。您可以在[控制面板]找到该识别码。
 
-取决于您的应用制作是用于测试或产品开发目的，您必须将 `environment` （环境模式）设为以下值之一：
+鉴于您的应用是用于测试还是产品开发，您必须将 `environment` （环境模式）设为以下值之一：
 
 ```java
 String environment = ADJPConstants.ENVIRONMENT_SANDBOX;
@@ -89,7 +89,7 @@ String environment = ADJPConstants.ENVIRONMENT_PRODUCTION;
 
 **重要:** 仅当您或其他人测试您的应用时，该值应设为 `ADJPConstants.ENVIRONMENT_SANDBOX` 。在您发布应用之前，请确保将环境改设为 `ADJPConstants.ENVIRONMENT_PRODUCTION` 。再次研发和测试时，请将其设回为 `ADJPConstants.ENVIRONMENT_SANDBOX` 。
 
-我们按照设置的环境来区分真实流量和来自测试设备的测试流量。非常重要的是，您必须始终让该值保持有意义！
+我们按照设置的环境来区分真实流量和来自测试设备的测试流量，所以正确使用环境参数是非常重要的！
 
 ### <a id="sdk-logging"></a>Adjust 购买日志
 
@@ -134,7 +134,7 @@ public class MainActivity extends Activity implements OnADJPVerificationFinished
     }
 }
 ```
-您需要传递以下参数，以调用adjust购买SDK的方法来发出验证请求：
+您需要传递以下参数，以调用adjust收入验证SDK的方法来发出验证请求：
 
 ```
 itemSku           // Unique order ID (SKU)
@@ -145,7 +145,7 @@ callback          // Callback method which will process the verification respons
 
 ### <a id="verification-response"></a>处理验证响应
 
-如以上代码所述，在该方法的最后一个参数中，您应该传递一个对象来实现 `OnADJPVerificationFinished` 协议。因此，您需要改写名为 `onVerificationFinished` 的方法。该方法将在响应到达时被我们的购买SDK调用。收入验证响应表示为 `ADJPVerificationInfo` 对象，并包含以下信息：
+如以上代码所述，在该方法的最后一个参数中，您应该传递一个对象来实现 `OnADJPVerificationFinished` 协议。因此，您需要改写名为 `onVerificationFinished` 的方法。该方法将在响应到达时被我们的收入验证SDK调用。收入验证响应表示为 `ADJPVerificationInfo` 对象，并包含以下信息：
 
 ```java
 info.getVerificationState()     // State of purchase verification.
