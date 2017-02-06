@@ -218,10 +218,6 @@ public class ADJPRequestHandler extends HandlerThread {
         } catch (Exception e) {
             ADJPLogger.getInstance().error("Failed to read response. (%s)", e.getMessage());
             throw e;
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
         }
 
         return response;
