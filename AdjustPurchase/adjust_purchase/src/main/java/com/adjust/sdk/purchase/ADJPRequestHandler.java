@@ -157,14 +157,13 @@ public class ADJPRequestHandler extends HandlerThread {
 
     private Map<String, Object> readHttpsResponse(HttpsURLConnection connection) throws Exception {
         Integer statusCode;
+        StringBuffer sb = new StringBuffer();
         Map<String, Object> response = new HashMap<String, Object>();
 
         try {
-            String message = null;
-            StringBuffer sb = new StringBuffer();
+            connection.connect();
             statusCode = connection.getResponseCode();
 
-            try {
                 String line;
                 InputStream inputStream;
 
@@ -180,44 +179,45 @@ public class ADJPRequestHandler extends HandlerThread {
                 while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
-
-                message = sb.toString();
-            } catch (Exception e) {
-                // Unable to get message from backend.
-            }
-
-            if (statusCode == 200) {
-                // All good.
-                response.put(ADJPConstants.KEY_ADJUST_MESSAGE, message);
-                response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, statusCode);
-                response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStatePassed);
-
-                ADJPLogger.getInstance().info(message);
-            } else if (statusCode == 204) {
-                // No idea. No response from Google servers.
-                response.put(ADJPConstants.KEY_ADJUST_MESSAGE, "Verification state unknown");
-                response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, statusCode);
-                response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStateUnknown);
-
-                ADJPLogger.getInstance().info("Verification state unknown");
-            } else if (statusCode == 406) {
-                // Not valid.
-                response.put(ADJPConstants.KEY_ADJUST_MESSAGE, message);
-                response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, statusCode);
-                response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStateFailed);
-
-                ADJPLogger.getInstance().info(message);
-            } else {
-                // Spread the word from the backend.
-                response.put(ADJPConstants.KEY_ADJUST_MESSAGE, message);
-                response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, statusCode);
-                response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStateUnknown);
-
-                ADJPLogger.getInstance().info(message);
-            }
         } catch (Exception e) {
             ADJPLogger.getInstance().error("Failed to read response. (%s)", e.getMessage());
             throw e;
+        } finally {
+            if (null != connection) {
+                connection.disconnect();
+            }
+        }
+
+        String message = sb.toString();
+
+        if (statusCode == 200) {
+            // All good.
+            response.put(ADJPConstants.KEY_ADJUST_MESSAGE, message);
+            response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, statusCode);
+            response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStatePassed);
+
+            ADJPLogger.getInstance().info(message);
+        } else if (statusCode == 204) {
+            // No idea. No response from Google servers.
+            response.put(ADJPConstants.KEY_ADJUST_MESSAGE, "Verification state unknown");
+            response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, statusCode);
+            response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStateUnknown);
+
+            ADJPLogger.getInstance().info("Verification state unknown");
+        } else if (statusCode == 406) {
+            // Not valid.
+            response.put(ADJPConstants.KEY_ADJUST_MESSAGE, message);
+            response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, statusCode);
+            response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStateFailed);
+
+            ADJPLogger.getInstance().info(message);
+        } else {
+            // Spread the word from the backend.
+            response.put(ADJPConstants.KEY_ADJUST_MESSAGE, message);
+            response.put(ADJPConstants.KEY_ADJUST_STATUS_CODE, statusCode);
+            response.put(ADJPConstants.KEY_ADJUST_STATE, ADJPVerificationState.ADJPVerificationStateUnknown);
+
+            ADJPLogger.getInstance().info(message);
         }
 
         return response;
