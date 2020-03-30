@@ -19,9 +19,6 @@ This is the Android purchase SDK of adjust™. You can read more about adjust™
 
 ## Basic integration
 
-In order to use the adjust purchase SDK, you must **first enable fraud prevention** for your app. You can find the 
-instructions in our official [fraud prevention guide][fraud-prevention] documentation.
-
 These are the basic steps required to integrate the adjust purchase SDK into your Android project. We are going to assume 
 that you use Android Studio for your Android development and target an Android API level 9 (Gingerbread) or later.
 
